@@ -1,0 +1,12 @@
+# macOS system files
+.DS_Store
+
+# Code editor
+.vscode/
+
+# Node / frontend build tools
+node_modules/
+dist/
+
+# Env / secrets
+.env
