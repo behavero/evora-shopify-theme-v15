@@ -1193,6 +1193,20 @@ deferred-media {
 /* component-button */
 /* Button - default */
 
+/* Primary Button Styles */
+.button--primary {
+  --color-button: var(--color-primary);
+  --color-button-text: var(--color-white);
+  background-color: var(--color-button);
+  color: var(--color-button-text);
+  border-radius: var(--radius-lg);
+  transition: filter var(--duration-short) ease;
+}
+
+.button--primary:hover {
+  filter: brightness(0.9);
+}
+
 .button--secondary,
 .button--tertiary {
   --color-button: var(--color-secondary-button);
