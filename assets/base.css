@@ -1,4 +1,26 @@
 :root {
+  /* Brand Colors */
+  --color-primary: #64A39D;
+  --color-gray: #635A56;
+  --color-blush: #A37864;
+  --color-text: #2D2E30;
+  --color-light: #F4F4F4;
+  --color-white: #FFFFFF;
+
+  /* Semantic Color Variables */
+  --color-background: var(--color-white);
+  --color-foreground: var(--color-text);
+  --color-button: var(--color-primary);
+  --color-button-text: var(--color-white);
+  --color-secondary-button: var(--color-light);
+  --color-secondary-button-text: var(--color-text);
+  --color-badge-background: var(--color-primary);
+  --color-badge-foreground: var(--color-white);
+  --color-badge-border: var(--color-primary);
+  --color-link: var(--color-primary);
+  --color-shadow: var(--color-text);
+
+  /* Existing Variables */
   --alpha-button-background: 1;
   --alpha-button-border: 1;
   --alpha-link: 0.85;
