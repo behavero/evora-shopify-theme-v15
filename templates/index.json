@@ -1,1 +1,168 @@
-{"sections":{"17424622411d6e01f9":{"type":"apps","blocks":{"clicky_clickable_banner_feik6M":{"type":"shopify:\/\/apps\/clicky\/blocks\/clickable_banner\/2d58f9d3-a5fb-4893-8aac-935f0ebcc5b8","settings":{"cb_desktop_image":"shopify:\/\/shop_images\/evora_yoga_Banner.webp","cb_mobile_image":"shopify:\/\/shop_images\/evora_yoga_mobile_banner.webp","image_size":"medium","cb_image_link":"shopify:\/\/collections\/pilates-set","cb_is_boxed_layout":false,"is_banner_sticky":false,"overlay_text":"","overlay_text_color":"#FFFFFF","button_text":"","button_text_color":"#FFFFFF","button_bg_color":"#000000","content_position":"middle-center","content_alignment":"center","cb_custom_css":"","padding_top":0,"padding_bottom":0}}},"block_order":["clicky_clickable_banner_feik6M"],"settings":{"include_margins":true}},"featured_collection2":{"type":"featured-collection","settings":{"collection":"muse-essentials","products_to_show":6,"title":"Exclusive Pre-Order (limited)","heading_size":"h1","description":"","show_description":false,"description_style":"body","columns_desktop":5,"enable_desktop_slider":true,"full_width":false,"show_view_all":false,"view_all_style":"solid","color_scheme":"","image_ratio":"square","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":false,"quick_add":"standard","columns_mobile":"2","swipe_on_mobile":true,"padding_top":36,"padding_bottom":52,"class":"evora-section-spacing"}},"image_with_text_qFjzAg":{"type":"image-with-text","blocks":{"heading_N6DpyE":{"type":"heading","settings":{"heading":"Inspired by you","heading_size":"h1"}},"text_Ra4G4L":{"type":"text","settings":{"text":"<p>Our vibrant community of movers and shakers. Each piece is thoughtfully designed to enhance your practice and fit seamlessly into your lifestyle. <br\/><br\/>We understand that activewear should be versatile, stylish, and functional. That's why we prioritize comfort and performance in every garment, ensuring you feel confident and empowered no matter where your day takes you.<\/p>","text_style":"body"}},"button_tW8g4M":{"type":"button","settings":{"button_label":"Learn more","button_link":"shopify:\/\/pages\/about-us","button_style_secondary":true}}},"block_order":["heading_N6DpyE","text_Ra4G4L","button_tW8g4M"],"settings":{"image":"shopify:\/\/shop_images\/muse_wide_sage_green_set1.png","height":"large","desktop_image_width":"medium","layout":"text_first","image_behavior":"none","content_layout":"no-overlap","desktop_content_position":"top","desktop_content_alignment":"left","mobile_content_alignment":"left","section_color_scheme":"scheme-1","color_scheme":"scheme-1","padding_top":36,"padding_bottom":36,"class":"evora-section-spacing"}},"173615368295abf7be":{"type":"apps","blocks":{"instafeed_app_block_jeEd6P":{"type":"shopify:\/\/apps\/instafeed\/blocks\/app-block\/c447db20-095d-4a10-9725-b5977662c9d5","settings":{"title":"Worn By You","title_color":"","title_size":45,"alignment":"left","margin_bottom":20,"background_color":"","feed_id":"","html_area":""}}},"block_order":["instafeed_app_block_jeEd6P"],"settings":{"include_margins":true,"class":"evora-section-spacing"}},"featured_blog_iVUaYU":{"type":"featured-blog","settings":{"blog":"lifestyle","post_limit":3,"heading":"Meet the Evora World","heading_size":"h1","columns_desktop":3,"show_view_all":true,"show_image":true,"show_date":true,"show_author":false,"color_scheme":"","padding_top":36,"padding_bottom":36,"class":"evora-section-spacing"}}},"order":["17424622411d6e01f9","featured_collection2","image_with_text_qFjzAg","173615368295abf7be","featured_blog_iVUaYU"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "17424622411d6e01f9": {
+      "type": "apps",
+      "blocks": {
+        "clicky_clickable_banner_feik6M": {
+          "type": "shopify://apps/clicky/blocks/clickable_banner/2d58f9d3-a5fb-4893-8aac-935f0ebcc5b8",
+          "settings": {
+            "cb_desktop_image": "shopify://shop_images/evora_yoga_Banner.webp",
+            "cb_mobile_image": "shopify://shop_images/evora_yoga_mobile_banner.webp",
+            "image_size": "medium",
+            "cb_image_link": "shopify://collections/pilates-set",
+            "cb_is_boxed_layout": false,
+            "is_banner_sticky": false,
+            "overlay_text": "",
+            "overlay_text_color": "#ffffff",
+            "button_text": "",
+            "button_text_color": "#ffffff",
+            "button_bg_color": "#000000",
+            "content_position": "middle-center",
+            "content_alignment": "center",
+            "cb_custom_css": "",
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "clicky_clickable_banner_feik6M"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "featured_collection2": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "muse-essentials",
+        "products_to_show": 6,
+        "title": "Exclusive Pre-Order (limited)",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 5,
+        "enable_desktop_slider": true,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "square",
+        "image_shape": "blob",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 52
+      }
+    },
+    "image_with_text_qFjzAg": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_N6DpyE": {
+          "type": "heading",
+          "settings": {
+            "heading": "Inspired by you",
+            "heading_size": "h1"
+          }
+        },
+        "text_Ra4G4L": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our vibrant community of movers and shakers. Each piece is thoughtfully designed to enhance your practice and fit seamlessly into your lifestyle. <br/><br/>We understand that activewear should be versatile, stylish, and functional. That's why we prioritize comfort and performance in every garment, ensuring you feel confident and empowered no matter where your day takes you.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_tW8g4M": {
+          "type": "button",
+          "settings": {
+            "button_label": "Learn more",
+            "button_link": "shopify://pages/about-us",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "heading_N6DpyE",
+        "text_Ra4G4L",
+        "button_tW8g4M"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/muse_wide_sage_green_set1.png",
+        "height": "large",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "173615368295abf7be": {
+      "type": "apps",
+      "blocks": {
+        "instafeed_app_block_jeEd6P": {
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+          "settings": {
+            "title": "Worn By You",
+            "title_color": "",
+            "title_size": 45,
+            "alignment": "left",
+            "margin_bottom": 20,
+            "background_color": "",
+            "feed_id": "",
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "instafeed_app_block_jeEd6P"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "featured_blog_iVUaYU": {
+      "type": "featured-blog",
+      "settings": {
+        "blog": "lifestyle",
+        "post_limit": 3,
+        "heading": "Meet the Evora World",
+        "heading_size": "h1",
+        "columns_desktop": 3,
+        "show_view_all": true,
+        "show_image": true,
+        "show_date": true,
+        "show_author": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "17424622411d6e01f9",
+    "featured_collection2",
+    "image_with_text_qFjzAg",
+    "173615368295abf7be",
+    "featured_blog_iVUaYU"
+  ]
+}
