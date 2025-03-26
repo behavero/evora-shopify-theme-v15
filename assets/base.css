@@ -20,6 +20,10 @@
   --color-link: var(--color-primary);
   --color-shadow: var(--color-text);
 
+  /* Section Spacing Variables */
+  --space-section-mobile: 32px;
+  --space-section-desktop: 64px;
+
   /* Existing Variables */
   --alpha-button-background: 1;
   --alpha-button-border: 1;
@@ -30,6 +34,19 @@
   --focused-base-box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
   --font-heading: var(--type_header_font), Montserrat, sans-serif;
   --font-body: var(--type_body_font), Karla, sans-serif;
+}
+
+/* Section Spacing Utility */
+.evora-section-spacing {
+  padding-top: var(--space-section-mobile);
+  padding-bottom: var(--space-section-mobile);
+}
+
+@media (min-width: 768px) {
+  .evora-section-spacing {
+    padding-top: var(--space-section-desktop);
+    padding-bottom: var(--space-section-desktop);
+  }
 }
 
 .product-card-wrapper .card,
