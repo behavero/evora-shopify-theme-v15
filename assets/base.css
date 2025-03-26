@@ -1194,7 +1194,7 @@ deferred-media {
 /* Button - default */
 
 /* Primary Button Styles */
-.button--primary {
+.button.button--primary {
   --color-button: var(--color-primary);
   --color-button-text: var(--color-white);
   background-color: var(--color-button);
@@ -1203,17 +1203,17 @@ deferred-media {
   transition: filter var(--duration-short) ease;
 }
 
-.button--primary:hover {
+.button.button--primary:hover {
   filter: brightness(0.9);
 }
 
-.button--secondary,
-.button--tertiary {
+.button.button--secondary,
+.button.button--tertiary {
   --color-button: var(--color-secondary-button);
   --color-button-text: var(--color-secondary-button-text);
 }
 
-.button--tertiary {
+.button.button--tertiary {
   --alpha-button-background: 0;
   --alpha-button-border: 0.2;
 }
