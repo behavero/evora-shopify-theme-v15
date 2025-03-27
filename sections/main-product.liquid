@@ -719,7 +719,24 @@
     -%}
 
     <script type="application/ld+json">
-      {{ product | structured_data }}
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": {{ product.title | json }},
+        "description": {{ product.description | strip_html | json }},
+        "image": {{ product.featured_image | image_url: width: 1100 | json }},
+        "brand": {
+          "@type": "Brand",
+          "name": {{ product.vendor | json }}
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": {{ product.price | money_without_currency | strip_html | json }},
+          "priceCurrency": {{ cart.currency.iso_code | json }},
+          "availability": {% if product.available %}"https://schema.org/InStock"{% else %}"https://schema.org/OutOfStock"{% endif %},
+          "url": {{ request.origin | append: product.url | json }}
+        }
+      }
     </script>
   </div>
 </product-info>
