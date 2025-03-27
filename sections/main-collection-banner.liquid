@@ -1,7 +1,7 @@
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
 
-{% render 'collection-schema', collection: collection %}
+{%- comment -%} {% render 'collection-schema', collection: collection %} {%- endcomment -%}
 
 {%- style -%}
   @media screen and (max-width: 749px) {
