@@ -45,6 +45,7 @@
           <a
             href="{{ section.settings.blog.url }}"
             class="link underlined-link large-up-hide{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            data-ph-capture-attribute-blog-category="{{ section.settings.blog.title | escape }}" data-ph-capture-attribute-blog-action="view_all_mobile"
           >
             {{ 'sections.featured_blog.view_all' | t }}
           </a>
@@ -182,6 +183,7 @@
           id="ViewAll-{{ section.id }}"
           class="blog__button button"
           aria-labelledby="ViewAll-{{ section.id }} SectionHeading-{{ section.id }}"
+          data-ph-capture-attribute-blog-category="{{ section.settings.blog.title | escape }}" data-ph-capture-attribute-blog-action="view_all_desktop"
         >
           {{ 'sections.featured_blog.view_all' | t }}
         </a>
