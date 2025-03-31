@@ -28,6 +28,34 @@
 
     {% render 'meta-tags' %}
 
+    {% if request.page_type == 'index' %}
+      {% unless content_for_header contains 'title' %}
+        <title>{{ shop.name }} – Premium Yoga & Pilates Sets</title>
+        <meta name="description" content="Explore Evora's minimalist activewear sets for yoga, pilates, and everyday elegance. Designed in Romania.">
+      {% endunless %}
+    {% endif %}
+
+    {% if request.page_type == 'product' %}
+      {% unless content_for_header contains 'title' %}
+        <title>{{ product.title | escape }} – {{ shop.name }}</title>
+        <meta name="description" content="{{ product.description | strip_html | truncate: 150 }}">
+      {% endunless %}
+    {% endif %}
+
+    {% if request.page_type == 'article' %}
+      {% unless content_for_header contains 'title' %}
+        <title>{{ article.title | escape }} – {{ shop.name }}</title>
+        <meta name="description" content="{{ article.excerpt | strip_html | truncate: 150 }}">
+      {% endunless %}
+    {% endif %}
+
+    {% if request.page_type == 'page' %}
+      {% unless content_for_header contains 'title' %}
+        <title>{{ page.title | escape }} – {{ shop.name }}</title>
+        <meta name="description" content="{{ page.content | strip_html | truncate: 150 }}">
+      {% endunless %}
+    {% endif %}
+
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
