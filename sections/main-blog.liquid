@@ -2,6 +2,18 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
 
+{% if request.page_type == 'blog' %}
+  {% unless content_for_header contains 'title' %}
+    <title>{{ blog.title | escape }} – {{ shop.name }}</title>
+    <meta name="description" content="{{ blog.description | strip_html | truncate: 150 }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta property="og:title" content="{{ blog.title | escape }}">
+    <meta property="og:description" content="{{ blog.description | strip_html | truncate: 150 }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta name="twitter:card" content="summary_large_image">
+  {% endunless %}
+{% endif %}
+
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
