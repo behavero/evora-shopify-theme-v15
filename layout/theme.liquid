@@ -5,8 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
-    <link rel="canonical" href="{{ canonical_url }}">
-    <link rel="alternate" hreflang="ro" href="{{ canonical_url }}">
+
+    {%- unless content_for_header contains 'title' -%}
+      <title>{{ page_title | default: shop.name }}</title>
+      <meta name="description" content="{{ page_description | default: shop.description }}">
+      <link rel="canonical" href="{{ canonical_url }}">
+
+      <meta property="og:title" content="{{ page_title | default: shop.name }}">
+      <meta property="og:description" content="{{ page_description | default: shop.description }}">
+      <meta property="og:url" content="{{ canonical_url }}">
+      <meta property="og:image" content="{{ settings.share_image | img_url: '1200x630' | prepend: shop.url }}">
+      <meta name="twitter:card" content="summary_large_image">
+
+      <link rel="alternate" hreflang="ro" href="{{ canonical_url }}">
+    {%- endunless -%}
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
