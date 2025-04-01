@@ -355,6 +355,15 @@
             person_profiles: 'identified_only',
             session_recording: { enabled: true }
         });
+
+        {% if customer %}
+          posthog.identify('{{ customer.email }}', {
+            email: '{{ customer.email }}',
+            name: '{{ customer.first_name | escape }}',
+            orders_count: {{ customer.orders_count }},
+            created_at: '{{ customer.created_at }}'
+          });
+        {% endif %}
     </script>
   </head>
 
