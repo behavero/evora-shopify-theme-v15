@@ -450,5 +450,144 @@
         });
       </script>
     {% endif %}
+
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq('init', '1201584131327660');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1201584131327660&ev=PageView&noscript=1"/>
+    </noscript>
+
+    {% if request.page_type == 'product' %}
+      <script>
+        fbq('track', 'ViewContent', {
+          content_ids: ['{{ product.id }}'],
+          content_name: '{{ product.title | escape }}',
+          content_type: 'product',
+          currency: '{{ shop.currency }}',
+          value: {{ product.price | money_without_currency }},
+          eventID: 'viewcontent-{{ product.id }}'
+        });
+      </script>
+    {% endif %}
+
+    {% if request.page_type == 'cart' %}
+      <script>
+        fbq('track', 'InitiateCheckout', {
+          content_ids: [{% for item in cart.items %}'{{ item.product.id }}'{% unless forloop.last %}, {% endunless %}{% endfor %}],
+          content_type: 'product',
+          currency: '{{ shop.currency }}',
+          value: {{ cart.total_price | money_without_currency }},
+          eventID: 'initiatecheckout-{{ cart.token }}'
+        });
+      </script>
+    {% endif %}
+
+    {% if request.page_type == 'thank_you' %}
+      <script>
+        fbq('track', 'Purchase', {
+          content_ids: [{% for item in order.line_items %}'{{ item.product.id }}'{% unless forloop.last %}, {% endunless %}{% endfor %}],
+          content_type: 'product',
+          currency: '{{ shop.currency }}',
+          value: {{ order.total_price | money_without_currency }},
+          eventID: 'purchase-{{ order.id }}'
+        });
+      </script>
+    {% endif %}
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Track Add to Cart events
+        document.querySelectorAll('form[action="/cart/add"]').forEach(function(form) {
+          form.addEventListener('submit', function(e) {
+            const productId = this.querySelector('input[name="id"]')?.value;
+            const productName = this.closest('form').querySelector('[name="product-title"]')?.value;
+            const productPrice = this.closest('form').querySelector('[name="product-price"]')?.value;
+            
+            if (productId) {
+              fbq('track', 'AddToCart', {
+                content_ids: [productId],
+                content_name: productName,
+                content_type: 'product',
+                currency: '{{ shop.currency }}',
+                value: productPrice,
+                eventID: 'addtocart-' + productId + '-' + Date.now()
+              });
+            }
+          });
+        });
+      });
+    </script>
+
+    <script>
+      async function sha256(str) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(str.trim().toLowerCase());
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+
+      async function sendToMetaCAPI(eventName, eventData = {}, userData = {}) {
+        const eventID = `${eventName}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+        const payload = {
+          event_name: eventName,
+          event_time: Math.floor(Date.now() / 1000),
+          event_source_url: window.location.href,
+          action_source: 'website',
+          event_id: eventID,
+          user_data: {
+            em: userData.email ? [await sha256(userData.email)] : undefined,
+            ph: userData.phone ? [await sha256(userData.phone)] : undefined,
+            fn: userData.first_name ? [await sha256(userData.first_name)] : undefined,
+            ln: userData.last_name ? [await sha256(userData.last_name)] : undefined,
+            ct: userData.city ? [await sha256(userData.city)] : undefined,
+            client_ip_address: '{{ request.ip }}',
+            client_user_agent: navigator.userAgent,
+            fbp: getCookie('_fbp'),
+            fbc: getCookie('_fbc')
+          },
+          custom_data: eventData
+        };
+
+        fetch("https://graph.facebook.com/v18.0/1201584131327660/events?access_token=EAAQEdOUy0RABO2U6d37ibSL95YfXKCbNyfRbVwYMxDMwLH2EoZClIGfJN7WItXmPOmZAqZCksR0ZBF9zNyaeX3DEMVetNnTSrZBZAwi45m3a3Tj1NuW3BKiqpcTjyRYlAiJtB9TIXgbDQvR12CKzw62v2TdoMhQ5y43ZA9ZBe4ZC43IDsVQiCxZAXrWYZARkZBG1ZAUDJhwZDZD", {
+          method: 'POST',
+          body: JSON.stringify({ data: [payload] }),
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+
+      function getCookie(name) {
+        const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        return match ? match[2] : null;
+      }
+
+      // Example: Track ViewContent on product pages
+      {% if request.page_type == 'product' %}
+        sendToMetaCAPI('ViewContent', {
+          content_ids: ['{{ product.id }}'],
+          content_type: 'product',
+          value: {{ product.price | money_without_currency }},
+          currency: '{{ shop.currency }}'
+        }, {
+          email: '{{ customer.email }}',
+          phone: '{{ customer.phone }}',
+          first_name: '{{ customer.first_name }}',
+          last_name: '{{ customer.last_name }}',
+          city: '{{ customer.default_address.city }}'
+        });
+      {% endif %}
+    </script>
   </body>
 </html>
