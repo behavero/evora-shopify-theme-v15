@@ -194,8 +194,8 @@
       "settings": {
         "heading": "Similar Items",
         "heading_size": "h1",
-        "products_to_show": 5,
-        "columns_desktop": 5,
+        "products_to_show": 3,
+        "columns_desktop": 3,
         "columns_mobile": "2",
         "color_scheme": "scheme-1",
         "image_ratio": "adapt",
