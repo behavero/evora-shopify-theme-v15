@@ -1,4 +1,4 @@
-<style type="text/css">
+{%- style -%}
   .template-404 .title + * {
     margin-top: 1rem;
   }
@@ -8,7 +8,19 @@
       margin-top: 2rem;
     }
   }
-</style>
+
+  .template-404 .helpful-links {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .template-404 .helpful-links a {
+    text-decoration: underline;
+  }
+{%- endstyle -%}
 
 <div class="template-404 page-width page-margin center">
   <p>
@@ -17,7 +29,33 @@
   <h1 class="title">
     {{ 'templates.404.title' | t }}
   </h1>
-  <a href="{{ routes.all_products_collection_url }}" class="button">
-    {{ 'general.continue_shopping' | t }}
-  </a>
+  <div class="helpful-links">
+    <a href="{{ routes.all_products_collection_url }}" class="button">
+      {{ 'general.continue_shopping' | t }}
+    </a>
+    <a href="/blogs/lifestyle">Visit Our Blog</a>
+    <a href="/">Go to Homepage</a>
+  </div>
 </div>
+
+{% schema %}
+{
+  "name": "t:sections.main-404.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "404",
+      "label": "t:sections.main-404.settings.title.label"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "default": "The page you're looking for doesn't exist or has been moved.",
+      "label": "t:sections.main-404.settings.subtext.label"
+    }
+  ]
+}
+{% endschema %}
