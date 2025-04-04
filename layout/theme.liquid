@@ -515,6 +515,19 @@
           value: {{ cart.total_price | money_without_currency }},
           eventID: 'initiatecheckout-{{ cart.token }}'
         });
+
+        // PostHog Begin Checkout Tracking
+        posthog.capture('begin_checkout', {
+          $set: {
+            cart_total: {{ cart.total_price | money_without_currency }},
+            cart_items: [{% for item in cart.items %}{
+              product_id: '{{ item.product.id }}',
+              product_name: '{{ item.product.title | escape }}',
+              quantity: {{ item.quantity }},
+              price: {{ item.price | money_without_currency }}
+            }{% unless forloop.last %}, {% endunless %}{% endfor %}]
+          }
+        });
       </script>
     {% endif %}
 
