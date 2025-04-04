@@ -44,7 +44,7 @@
   <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     <div class="collection-hero__text-wrapper">
       {% assign home_label = 'general.breadcrumb.home' | t %}
-      {% if home_label contains 'translation missing' %}
+      {% if home_label contains 'translation missing' or home_label == blank %}
         {% assign home_label = 'Home' %}
       {% endif %}
       <nav class="breadcrumb" aria-label="{{ 'general.breadcrumb.nav_label' | t }}">
@@ -58,9 +58,7 @@
         {{- collection.title | escape -}}
       </h1>
 
-      {%- if section.settings.show_collection_description and collection.handle != 'exclusive-pre-order' -%}
-        <div class="collection-hero__description rte">{{ collection.description }}</div>
-      {%- endif -%}
+      {%- comment -%}Collection description removed{%- endcomment -%}
     </div>
 
     {%- if section.settings.show_collection_image and collection.image -%}
