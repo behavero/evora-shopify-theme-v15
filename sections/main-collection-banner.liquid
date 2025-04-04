@@ -43,8 +43,12 @@
 <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
   <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     <div class="collection-hero__text-wrapper">
+      {% assign home_label = 'general.breadcrumb.home' | t %}
+      {% if home_label contains 'translation missing' %}
+        {% assign home_label = 'Home' %}
+      {% endif %}
       <nav class="breadcrumb" aria-label="{{ 'general.breadcrumb.nav_label' | t }}">
-        <a href="/" class="breadcrumb__link">{{ 'general.breadcrumb.home' | t }}</a>
+        <a href="/" class="breadcrumb__link">{{ home_label }}</a>
         <span class="breadcrumb__separator" aria-hidden="true">›</span>
         <span class="breadcrumb__current">{{ collection.title | escape }}</span>
       </nav>
@@ -94,7 +98,7 @@
     {
       "type": "checkbox",
       "id": "show_collection_description",
-      "default": true,
+      "default": false,
       "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
     },
     {
