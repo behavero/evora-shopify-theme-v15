@@ -745,5 +745,32 @@
         });
       });
     </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Track Link Clicks
+        document.querySelectorAll('[data-ph-link]')?.forEach((el) => {
+          el.addEventListener('click', function() {
+            const label = el.innerText?.trim() || el.getAttribute('aria-label') || 'Link';
+            fbq('trackCustom', 'LinkClick', {
+              content_name: label,
+              content_category: 'LinkClick - CTA'
+            });
+          });
+        });
+
+        // Track Newsletter Subscriptions
+        document.querySelectorAll('form[action*="/contact"]').forEach(function(form) {
+          form.addEventListener('submit', function() {
+            if (this.querySelector('input[name="contact[tags]"][value="newsletter"]')) {
+              fbq('track', 'Subscribe');
+              sendToMetaCAPI('Subscribe', {}, {
+                email: this.querySelector('input[name="contact[email]"]')?.value
+              });
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>
