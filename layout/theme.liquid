@@ -383,8 +383,6 @@
           });
         {% endif %}
     </script>
-
-    {{ 'privacy-banner.css' | asset_url | stylesheet_tag }}
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -666,7 +664,5 @@
       // Cleanup on page unload
       window.addEventListener('unload', () => EvoraTracking.cleanup());
     </script>
-
-    <script src="{{ 'privacy-controls.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>

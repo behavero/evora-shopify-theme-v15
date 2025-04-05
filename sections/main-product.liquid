@@ -763,19 +763,28 @@
               }
             }
           }
-        },
-        "aggregateRating": {
+        }
+        {%- if product.metafields.reviews.rating.value != blank and product.metafields.reviews.rating_count != blank -%}
+        ,"aggregateRating": {
           "@type": "AggregateRating",
-          "ratingValue": "4.8",
-          "reviewCount": "24"
-        },
-        "review": [{
+          "ratingValue": {{ product.metafields.reviews.rating.value.rating | json }},
+          "reviewCount": {{ product.metafields.reviews.rating_count | json }},
+          "bestRating": {{ product.metafields.reviews.rating.value.scale_max | json }},
+          "worstRating": "1"
+        }
+        {%- endif -%}
+        {%- if product.metafields.reviews.rating.value != blank -%}
+        ,"review": [{
           "@type": "Review",
           "author": { "@type": "Person", "name": "Verified Buyer" },
-          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-          "reviewBody": "Love the softness and fit. Will order again!"
-        }],
-        "hasMerchantReturnPolicy": {
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": {{ product.metafields.reviews.rating.value | json }},
+            "bestRating": {{ product.metafields.reviews.rating.value.scale_max | json }}
+          }
+        }]
+        {%- endif -%}
+        ,"hasMerchantReturnPolicy": {
           "@type": "MerchantReturnPolicy",
           "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
           "merchantReturnDays": "14",
