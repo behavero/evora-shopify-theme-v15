@@ -54,7 +54,7 @@
           "settings": {
             "heading": "Description",
             "icon": "none",
-            "content": "<p>This sports bra is the perfect workout top for exercising. <br/><br/>The compression fabric along with double-layered front and shoulder straps ensures great support while running, jumping, or pumping iron. <br/><br/>Wear it while exercising or style it as a streetwear top on sunny days!<br/><br/>The fabric is Global Recycled Standard (GRS) certified</p>",
+            "content": "<p>Stay hydrated in style with the Evora Tumbler. Designed for everyday movement, this 900ml insulated water cup keeps your drinks cold for hours. </p><p>Its sleek design and easy-sip lid make it the perfect companion for Pilates, yoga, and life on the go. </p><p>Made with premium, BPA-free materials.</p>",
             "page": ""
           }
         },
@@ -63,7 +63,7 @@
           "settings": {
             "heading": "Materials and care",
             "icon": "none",
-            "content": "<p><strong>Materials</strong></p><ul><li>74% recycled polyester</li><li>26% elastane</li></ul><p><strong>Care</strong></p><ul><li>Machine wash cold</li><li>Do not bleach</li><li>Do not iron</li><li>Do not dry clean</li><li>Wash with similar colors</li></ul>",
+            "content": "<p>Oțel inoxidabil | Polypropylene (PP) | Polystyrene (PS) | Silicone</p>",
             "page": "materials-and-care"
           }
         },
@@ -138,7 +138,14 @@
           "settings": {
             "title": "",
             "title_color": "",
+            "title_size": 0,
             "alignment": "center",
+            "margin_top": 0,
+            "margin_bottom": 0,
+            "margin_sides": 0,
+            "show_instagram_link": false,
+            "link_alignment": "left",
+            "link_color": "#000000",
             "background_color": "",
             "feed_id": "",
             "html_area": ""
