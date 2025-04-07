@@ -35,18 +35,17 @@
             "swatch_shape": "circle"
           }
         },
-        "text_r8pV8n": {
-          "type": "text",
-          "settings": {
-            "text": "<strong>Fit:</strong> True to size — designed with supportive compression for a secure fit",
-            "text_style": "body"
-          }
-        },
         "buy_buttons_VrHJJ6": {
           "type": "buy_buttons",
           "settings": {
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": true
+          }
+        },
+        "joy_loyalty_program_joy_points_calculator_block_JpCRxF": {
+          "type": "shopify://apps/joy-loyalty-program/blocks/joy-points-calculator-block/555c55c9-9a3d-4fe0-a7a8-2c256984a371",
+          "settings": {
+            "points_calculator_alignment": "left"
           }
         },
         "collapsible_tab_rTm8Mj": {
@@ -89,8 +88,8 @@
         "price",
         "description",
         "variant_picker_3dNbfX",
-        "text_r8pV8n",
         "buy_buttons_VrHJJ6",
+        "joy_loyalty_program_joy_points_calculator_block_JpCRxF",
         "collapsible_tab_rTm8Mj",
         "collapsible-row-0",
         "collapsible-row-2",
