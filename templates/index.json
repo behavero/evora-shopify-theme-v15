@@ -176,7 +176,7 @@
     "featured_blog_iVUaYU": {
       "type": "featured-blog",
       "settings": {
-        "blog": "lifestyle",
+        "blog": "news",
         "post_limit": 3,
         "heading": "Meet the Evora World",
         "heading_size": "h1",
