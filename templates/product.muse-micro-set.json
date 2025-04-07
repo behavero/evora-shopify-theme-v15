@@ -63,6 +63,12 @@
             "show_gift_card_recipient": true
           }
         },
+        "joy_loyalty_program_joy_points_calculator_block_B3n3eb": {
+          "type": "shopify://apps/joy-loyalty-program/blocks/joy-points-calculator-block/555c55c9-9a3d-4fe0-a7a8-2c256984a371",
+          "settings": {
+            "points_calculator_alignment": "left"
+          }
+        },
         "collapsible_tab_rTm8Mj": {
           "type": "collapsible_tab",
           "settings": {
@@ -113,6 +119,7 @@
         "text_r8pV8n",
         "inventory_wb8iat",
         "buy_buttons_VrHJJ6",
+        "joy_loyalty_program_joy_points_calculator_block_B3n3eb",
         "collapsible_tab_rTm8Mj",
         "collapsible-row-0",
         "collapsible-row-2",
@@ -210,7 +217,12 @@
             "title_color": "",
             "title_size": 40,
             "alignment": "left",
+            "margin_top": 0,
             "margin_bottom": 20,
+            "margin_sides": 0,
+            "show_instagram_link": false,
+            "link_alignment": "left",
+            "link_color": "#000000",
             "background_color": "",
             "feed_id": "",
             "html_area": ""
