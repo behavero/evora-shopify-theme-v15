@@ -664,5 +664,85 @@
       // Cleanup on page unload
       window.addEventListener('unload', () => EvoraTracking.cleanup());
     </script>
+
+    <!-- TikTok Pixel Server-Side Events -->
+    <script>
+      const TikTokCAPI = {
+        endpoint: 'https://evora-tiktok-capi-k90bn989h-behaveros-projects.vercel.app/api/tiktok-capi',
+        
+        async sendEvent(eventName, properties = {}) {
+          if (!window.fetch) return;
+          
+          try {
+            await fetch(this.endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                event: eventName,
+                properties: {
+                  ...properties,
+                  currency: '{{ shop.currency }}'
+                }
+              })
+            });
+          } catch (error) {
+            console.error(`TikTok ${eventName} tracking error:`, error);
+          }
+        },
+
+        init() {
+          // ViewContent event on product pages
+          {% if template.name == 'product' %}
+            this.sendEvent('ViewContent', {
+              value: {{ product.price | divided_by: 100.0 }},
+              content_type: 'product',
+              content_id: '{{ product.id }}',
+              content_name: '{{ product.title | escape }}'
+            });
+          {% endif %}
+
+          // AddToCart event
+          document.querySelectorAll('form[action="/cart/add"]').forEach(form => {
+            const handler = async (e) => {
+              const productId = form.querySelector('input[name="id"]')?.value;
+              const productName = form.querySelector('[name="product-title"]')?.value;
+              const productPrice = form.querySelector('[name="product-price"]')?.value;
+              
+              if (!productId) return;
+
+              await this.sendEvent('AddToCart', {
+                value: productPrice,
+                content_type: 'product',
+                content_id: productId,
+                content_name: productName
+              });
+            };
+            form.addEventListener('submit', handler);
+          });
+
+          // InitiateCheckout event on cart page
+          {% if template.name == 'cart' %}
+            this.sendEvent('InitiateCheckout', {
+              value: {{ cart.total_price | divided_by: 100.0 }},
+              content_type: 'cart',
+              content_ids: {{ cart.items | map: 'product_id' | json }}
+            });
+          {% endif %}
+
+          // CompletePayment event on order confirmation page
+          {% if template.name == 'page' and page.handle == 'thank_you' %}
+            this.sendEvent('CompletePayment', {
+              value: {{ order.total_price | divided_by: 100.0 }},
+              content_type: 'order',
+              content_ids: {{ order.line_items | map: 'product_id' | json }},
+              order_id: '{{ order.id }}'
+            });
+          {% endif %}
+        }
+      };
+
+      // Initialize TikTok tracking on DOMContentLoaded
+      document.addEventListener('DOMContentLoaded', () => TikTokCAPI.init());
+    </script>
   </body>
 </html>
