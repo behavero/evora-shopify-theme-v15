@@ -757,7 +757,8 @@
               }],
               value: {{ product.price | divided_by: 100.0 }},
               content_name: '{{ product.title | escape }}',
-              content_category: '{{ product.type | escape }}'
+              content_category: '{{ product.type | escape }}',
+              currency: 'RON'
             };
             
             ttq.track('ViewContent', productData);
@@ -785,7 +786,8 @@
                 }],
                 value: productPrice,
                 content_name: productName,
-                content_category: productType
+                content_category: productType,
+                currency: 'RON'
               };
 
               ttq.track('AddToCart', cartData);
@@ -807,7 +809,8 @@
               })),
               value: {{ cart.total_price | divided_by: 100.0 }},
               content_name: 'Cart Checkout',
-              content_category: 'Checkout'
+              content_category: 'Checkout',
+              currency: 'RON'
             };
 
             ttq.track('InitiateCheckout', checkoutData);
@@ -827,7 +830,8 @@
               })),
               value: {{ cart.total_price | divided_by: 100.0 }},
               content_name: 'Payment Info Added',
-              content_category: 'Checkout'
+              content_category: 'Checkout',
+              currency: 'RON'
             };
 
             ttq.track('AddPaymentInfo', paymentData);
@@ -848,7 +852,8 @@
               value: {{ order.total_price | divided_by: 100.0 }},
               content_name: 'Order Completed',
               content_category: 'Purchase',
-              status: 'completed'
+              status: 'completed',
+              currency: 'RON'
             };
 
             ttq.track('CompletePayment', orderData);
@@ -869,7 +874,8 @@
               value: 0,
               content_name: 'Account Created',
               content_category: 'Registration',
-              status: 'completed'
+              status: 'completed',
+              currency: 'RON'
             };
 
             ttq.track('CompleteRegistration', registrationData);
@@ -887,7 +893,8 @@
               })),
               search_string: '{{ search.terms | escape }}',
               content_name: 'Search Results',
-              content_category: 'Search'
+              content_category: 'Search',
+              currency: 'RON'
             };
 
             ttq.track('Search', searchData);
