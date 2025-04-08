@@ -24,6 +24,19 @@
 
 <meta name="robots" content="noindex">
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "404 - Page Not Found",
+  "description": "This page does not exist on Evora.",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ shop.url }}{{ request.path }}"
+  }
+}
+</script>
+
 <div class="template-404 page-width page-margin center">
   <p>
     {{ 'templates.404.subtext' | t }}
