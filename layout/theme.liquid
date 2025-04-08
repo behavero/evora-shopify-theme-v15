@@ -27,7 +27,7 @@
           assign canonical_url = canonical_url | split: '?' | first
         endif
       -%}
-      <link rel="canonical" href="{{ canonical_url }}">
+      <link rel="canonical" href="{{ canonical_url | split: '?' | first }}">
 
       <meta property="og:title" content="{{ page_title | default: shop.name }}">
       <meta property="og:description" content="{{ page_description | default: shop.description }}">
