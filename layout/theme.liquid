@@ -682,22 +682,58 @@
     <!-- TikTok Pixel Server-Side Events -->
     <script>
       const TikTokCAPI = {
-        endpoint: 'https://evora-tiktok-capi-k90bn989h-behaveros-projects.vercel.app/api/tiktok-capi',
+        endpoint: 'https://evora-tiktok-capi-91g2fvsyi-behaveros-projects.vercel.app/api/tiktok-capi',
         
-        async sendEvent(eventName, properties = {}) {
-          if (!window.fetch) return;
+        async sha256(str) {
+          if (!str || typeof str !== 'string') return undefined;
+          const encoder = new TextEncoder();
+          const data = encoder.encode(str.trim().toLowerCase());
+          const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+          return Array.from(new Uint8Array(hashBuffer))
+            .map(b => b.toString(16).padStart(2, '0'))
+            .join('');
+        },
+
+        async identifyUser() {
+          {% if customer %}
+            const hashedEmail = await this.sha256('{{ customer.email }}');
+            const hashedPhone = await this.sha256('{{ customer.phone }}');
+            const hashedId = await this.sha256('{{ customer.id }}');
+            
+            ttq.identify({
+              email: hashedEmail,
+              phone_number: hashedPhone,
+              external_id: hashedId
+            });
+          {% endif %}
+        },
+
+        async sendEvent(eventName, eventData = {}) {
+          if (!window.fetch || (typeof EvoraPrivacy !== 'undefined' && !EvoraPrivacy.hasConsent('marketing'))) return;
           
           try {
+            const email = '{{ customer.email }}';
+            const phone = '{{ customer.phone }}';
+            const customerId = '{{ customer.id }}';
+            
+            const payload = {
+              event: eventName,
+              contents: eventData.contents || [],
+              value: eventData.value || 0,
+              currency: '{{ shop.currency }}',
+              content_name: eventData.content_name,
+              content_category: eventData.content_category,
+              external_id: customerId ? await this.sha256(customerId) : null,
+              email: email ? await this.sha256(email) : null,
+              phone_number: phone ? await this.sha256(phone) : null,
+              ip: '{{ request.ip }}',
+              user_agent: navigator.userAgent
+            };
+
             await fetch(this.endpoint, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                event: eventName,
-                properties: {
-                  ...properties,
-                  currency: '{{ shop.currency }}'
-                }
-              })
+              body: JSON.stringify(payload)
             });
           } catch (error) {
             console.error(`TikTok ${eventName} tracking error:`, error);
@@ -705,14 +741,27 @@
         },
 
         init() {
+          // Identify user if logged in
+          this.identifyUser();
+
           // ViewContent event on product pages
           {% if template.name == 'product' %}
-            this.sendEvent('ViewContent', {
+            const productData = {
+              contents: [{
+                content_id: '{{ product.id }}',
+                content_type: 'product',
+                content_name: '{{ product.title | escape }}',
+                content_category: '{{ product.type | escape }}',
+                price: {{ product.price | divided_by: 100.0 }},
+                num_items: 1
+              }],
               value: {{ product.price | divided_by: 100.0 }},
-              content_type: 'product',
-              content_id: '{{ product.id }}',
-              content_name: '{{ product.title | escape }}'
-            });
+              content_name: '{{ product.title | escape }}',
+              content_category: '{{ product.type | escape }}'
+            };
+            
+            ttq.track('ViewContent', productData);
+            this.sendEvent('ViewContent', productData);
           {% endif %}
 
           // AddToCart event
@@ -721,36 +770,128 @@
               const productId = form.querySelector('input[name="id"]')?.value;
               const productName = form.querySelector('[name="product-title"]')?.value;
               const productPrice = form.querySelector('[name="product-price"]')?.value;
+              const productType = form.querySelector('[name="product-type"]')?.value;
               
               if (!productId) return;
 
-              await this.sendEvent('AddToCart', {
+              const cartData = {
+                contents: [{
+                  content_id: productId,
+                  content_type: 'product',
+                  content_name: productName,
+                  content_category: productType,
+                  price: productPrice,
+                  num_items: 1
+                }],
                 value: productPrice,
-                content_type: 'product',
-                content_id: productId,
-                content_name: productName
-              });
+                content_name: productName,
+                content_category: productType
+              };
+
+              ttq.track('AddToCart', cartData);
+              await this.sendEvent('AddToCart', cartData);
             };
             form.addEventListener('submit', handler);
           });
 
           // InitiateCheckout event on cart page
           {% if template.name == 'cart' %}
-            this.sendEvent('InitiateCheckout', {
+            const checkoutData = {
+              contents: {{ cart.items | map: 'product_id' | json }}.map(id => ({
+                content_id: id,
+                content_type: 'product',
+                content_name: '{{ cart.items | map: 'title' | join: ', ' | escape }}',
+                content_category: '{{ cart.items | map: 'product_type' | join: ', ' | escape }}',
+                price: {{ cart.total_price | divided_by: cart.items.size | divided_by: 100.0 }},
+                num_items: 1
+              })),
               value: {{ cart.total_price | divided_by: 100.0 }},
-              content_type: 'cart',
-              content_ids: {{ cart.items | map: 'product_id' | json }}
-            });
+              content_name: 'Cart Checkout',
+              content_category: 'Checkout'
+            };
+
+            ttq.track('InitiateCheckout', checkoutData);
+            this.sendEvent('InitiateCheckout', checkoutData);
           {% endif %}
 
-          // CompletePayment event on order confirmation page
+          // AddPaymentInfo event on checkout page
+          {% if template.name == 'page' and page.handle == 'checkout' %}
+            const paymentData = {
+              contents: {{ cart.items | map: 'product_id' | json }}.map(id => ({
+                content_id: id,
+                content_type: 'product',
+                content_name: '{{ cart.items | map: 'title' | join: ', ' | escape }}',
+                content_category: '{{ cart.items | map: 'product_type' | join: ', ' | escape }}',
+                price: {{ cart.total_price | divided_by: cart.items.size | divided_by: 100.0 }},
+                num_items: 1
+              })),
+              value: {{ cart.total_price | divided_by: 100.0 }},
+              content_name: 'Payment Info Added',
+              content_category: 'Checkout'
+            };
+
+            ttq.track('AddPaymentInfo', paymentData);
+            this.sendEvent('AddPaymentInfo', paymentData);
+          {% endif %}
+
+          // CompletePayment and PlaceAnOrder events on order confirmation page
           {% if template.name == 'page' and page.handle == 'thank_you' %}
-            this.sendEvent('CompletePayment', {
+            const orderData = {
+              contents: {{ order.line_items | map: 'product_id' | json }}.map(id => ({
+                content_id: id,
+                content_type: 'product',
+                content_name: '{{ order.line_items | map: 'title' | join: ', ' | escape }}',
+                content_category: '{{ order.line_items | map: 'product_type' | join: ', ' | escape }}',
+                price: {{ order.total_price | divided_by: order.line_items.size | divided_by: 100.0 }},
+                num_items: 1
+              })),
               value: {{ order.total_price | divided_by: 100.0 }},
-              content_type: 'order',
-              content_ids: {{ order.line_items | map: 'product_id' | json }},
-              order_id: '{{ order.id }}'
-            });
+              content_name: 'Order Completed',
+              content_category: 'Purchase',
+              status: 'completed'
+            };
+
+            ttq.track('CompletePayment', orderData);
+            ttq.track('PlaceAnOrder', orderData);
+            await this.sendEvent('CompletePayment', orderData);
+            await this.sendEvent('PlaceAnOrder', orderData);
+          {% endif %}
+
+          // CompleteRegistration event on account creation
+          {% if template.name == 'page' and page.handle == 'account' %}
+            const registrationData = {
+              contents: [{
+                content_id: 'account_creation',
+                content_type: 'registration',
+                content_name: 'Account Creation',
+                content_category: 'User Account'
+              }],
+              value: 0,
+              content_name: 'Account Created',
+              content_category: 'Registration',
+              status: 'completed'
+            };
+
+            ttq.track('CompleteRegistration', registrationData);
+            this.sendEvent('CompleteRegistration', registrationData);
+          {% endif %}
+
+          // Search event on search results page
+          {% if template.name == 'search' %}
+            const searchData = {
+              contents: {{ search.results | map: 'id' | json }}.map(id => ({
+                content_id: id,
+                content_type: 'product',
+                content_name: '{{ search.results | map: 'title' | join: ', ' | escape }}',
+                content_category: '{{ search.results | map: 'product_type' | join: ', ' | escape }}'
+              })),
+              search_string: '{{ search.terms | escape }}',
+              content_name: 'Search Results',
+              content_category: 'Search'
+            };
+
+            ttq.track('Search', searchData);
+            this.sendEvent('Search', searchData);
           {% endif %}
         }
       };
