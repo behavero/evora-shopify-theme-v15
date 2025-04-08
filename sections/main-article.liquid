@@ -1,5 +1,43 @@
 {{ 'section-blog-post.css' | asset_url | stylesheet_tag }}
 
+{% if request.page_type == 'article' %}
+  {% unless content_for_header contains 'title' %}
+    <title>{{ article.title }} – {{ shop.name }}</title>
+    <meta name="description" content="{{ article.excerpt | strip_html | truncate: 150 }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <meta property="og:title" content="{{ article.title | escape }}">
+    <meta property="og:description" content="{{ article.excerpt | strip_html | truncate: 150 }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta name="twitter:card" content="summary_large_image">
+  {% endunless %}
+{% endif %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ article.title | escape }}",
+  "description": "{{ article.excerpt | strip_html | escape }}",
+  "author": {
+    "@type": "Organization",
+    "name": "{{ shop.name }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ shop.name }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ shop.logo | img_url: 'master' }}"
+    }
+  },
+  "datePublished": "{{ article.published_at | date: "%Y-%m-%d" }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ shop.url }}{{ article.url }}"
+  }
+}
+</script>
+
 <article class="article-template">
   {%- for block in section.blocks -%}
     {%- case block.type -%}
@@ -287,10 +325,6 @@
     </div>
   {%- endif -%}
 </article>
-
-<script type="application/ld+json">
-  {{ article | structured_data }}
-</script>
 
 {% schema %}
 {
