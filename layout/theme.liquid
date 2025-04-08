@@ -630,36 +630,42 @@
           });
 
           // Add to Cart Tracking
-          document.querySelectorAll('form[action="/cart/add"]').forEach((form) => {
+          document.querySelectorAll('form[action="/cart/add"]').forEach(form => {
             const handler = async (e) => {
               const productId = form.querySelector('input[name="id"]')?.value;
               const productName = form.querySelector('[name="product-title"]')?.value;
               const productPrice = form.querySelector('[name="product-price"]')?.value;
+              const productType = form.querySelector('[name="product-type"]')?.value;
+              const quantity = form.querySelector('input[name="quantity"]')?.value || 1;
               
               if (!productId) return;
 
-              const eventID = 'addtocart-' + productId + '-' + Date.now();
-              const eventData = {
-                content_ids: [productId],
+              // Calculate the total value (price * quantity)
+              const totalValue = parseFloat(productPrice) * parseInt(quantity);
+
+              const cartData = {
+                contents: [{
+                  content_id: productId,
+                  content_type: 'product',
+                  content_name: productName,
+                  content_category: productType,
+                  price: productPrice,
+                  num_items: parseInt(quantity)
+                }],
+                value: totalValue,
                 content_name: productName,
-                content_type: 'product',
-                currency: '{{ shop.currency }}',
-                value: productPrice,
-                eventID
+                content_category: productType,
+                currency: 'RON'
               };
 
-              try {
-                fbq('track', 'AddToCart', eventData);
-                await this.sendToMetaCAPI('AddToCart', eventData, {
-                  email: '{{ customer.email }}',
-                  phone: '{{ customer.phone }}',
-                  first_name: '{{ customer.first_name }}',
-                  last_name: '{{ customer.last_name }}',
-                  city: '{{ customer.default_address.city }}'
-                });
-              } catch (error) {
-                console.error('AddToCart tracking error:', error);
-              }
+              ttq.track('AddToCart', cartData);
+              await this.sendToMetaCAPI('AddToCart', cartData, {
+                email: '{{ customer.email }}',
+                phone: '{{ customer.phone }}',
+                first_name: '{{ customer.first_name }}',
+                last_name: '{{ customer.last_name }}',
+                city: '{{ customer.default_address.city }}'
+              });
             };
             form.addEventListener('submit', handler);
             this.cleanupFunctions.add(() => form.removeEventListener('submit', handler));
@@ -772,8 +778,12 @@
               const productName = form.querySelector('[name="product-title"]')?.value;
               const productPrice = form.querySelector('[name="product-price"]')?.value;
               const productType = form.querySelector('[name="product-type"]')?.value;
+              const quantity = form.querySelector('input[name="quantity"]')?.value || 1;
               
               if (!productId) return;
+
+              // Calculate the total value (price * quantity)
+              const totalValue = parseFloat(productPrice) * parseInt(quantity);
 
               const cartData = {
                 contents: [{
@@ -782,9 +792,9 @@
                   content_name: productName,
                   content_category: productType,
                   price: productPrice,
-                  num_items: 1
+                  num_items: parseInt(quantity)
                 }],
-                value: productPrice,
+                value: totalValue,
                 content_name: productName,
                 content_category: productType,
                 currency: 'RON'
