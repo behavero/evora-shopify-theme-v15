@@ -1216,7 +1216,7 @@ deferred-media {
   --color-button-text: var(--color-white);
   background-color: var(--color-button);
   color: var(--color-button-text);
-  border-radius: var(--radius-lg);
+  border-radius: var(--buttons-radius-outset);
   transition: filter var(--duration-short) ease;
 }
 
@@ -1244,7 +1244,7 @@ button.shopify-payment-button__button--unbranded {
   --shadow-blur-radius: var(--buttons-shadow-blur-radius);
   --shadow-opacity: var(--buttons-shadow-opacity);
   --shadow-visible: var(--buttons-shadow-visible);
-  --border-offset: var(--buttons-border-offset); /* reduce radius edge artifacts */
+  --border-offset: var(--buttons-border-offset);
   --border-opacity: calc(1 - var(--buttons-border-opacity));
   border-radius: var(--buttons-radius-outset);
   position: relative;
@@ -1360,6 +1360,7 @@ button.shopify-payment-button__button--unbranded {
   padding: 1rem 1.5rem;
   min-width: calc(9rem + var(--buttons-border-width) * 2);
   min-height: calc(3.5rem + var(--buttons-border-width) * 2);
+  border-radius: var(--buttons-radius-outset);
 }
 
 .button--small {
