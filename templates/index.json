@@ -15,8 +15,9 @@
         "clicky_clickable_banner_feik6M": {
           "type": "shopify://apps/clicky/blocks/clickable_banner/2d58f9d3-a5fb-4893-8aac-935f0ebcc5b8",
           "settings": {
-            "cb_desktop_image": "shopify://shop_images/seturi-pilates-minimaliste-evora-activewear-romania.webp",
-            "image_size": "large",
+            "cb_desktop_image": "shopify://shop_images/evora-muse-collection-banner-primavara-desktop.webp",
+            "cb_mobile_image": "shopify://shop_images/evora-muse-collection-banner-primavara-mobile.webp",
+            "image_size": "adapt",
             "cb_image_link": "shopify://collections/pilates-set",
             "cb_is_boxed_layout": false,
             "is_banner_sticky": false,
