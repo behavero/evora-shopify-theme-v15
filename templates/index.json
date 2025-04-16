@@ -16,7 +16,7 @@
           "type": "shopify://apps/clicky/blocks/clickable_banner/2d58f9d3-a5fb-4893-8aac-935f0ebcc5b8",
           "settings": {
             "cb_desktop_image": "shopify://shop_images/femei-pilates-echipament-sport-evora.webp",
-            "image_size": "medium",
+            "image_size": "large",
             "cb_image_link": "shopify://collections/pilates-set",
             "cb_is_boxed_layout": false,
             "is_banner_sticky": false,
