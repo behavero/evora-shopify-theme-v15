@@ -14,10 +14,17 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_QPQk4L": {
+          "type": "announcement",
+          "settings": {
+            "text": "NEW CREAM ON THE BLOCK 🤍 SHOP NOW",
+            "link": ""
+          }
+        },
         "announcement_TRANFc": {
           "type": "announcement",
           "settings": {
-            "text": "Free Shipping over 400 lei",
+            "text": "FREE SHIPPING OVER 400 LEI",
             "link": ""
           }
         },
@@ -30,6 +37,7 @@
         }
       },
       "block_order": [
+        "announcement_QPQk4L",
         "announcement_TRANFc",
         "announcement-bar-0"
       ],
