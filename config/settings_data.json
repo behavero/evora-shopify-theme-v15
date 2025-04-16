@@ -145,11 +145,6 @@
     },
     "content_for_index": [],
     "blocks": {
-      "7584948915495707528": {
-        "type": "shopify://apps/joy-loyalty-program/blocks/app-embed/555c55c9-9a3d-4fe0-a7a8-2c256984a371",
-        "disabled": false,
-        "settings": {}
-      },
       "1232542678405107163": {
         "type": "shopify://apps/instafeed/blocks/head-block/c447db20-095d-4a10-9725-b5977662c9d5",
         "disabled": false,
@@ -215,6 +210,11 @@
           "button_vertical_position": "lowest",
           "greeting_message": ""
         }
+      },
+      "7584948915495707528": {
+        "type": "shopify://apps/joy-loyalty-program/blocks/app-embed/555c55c9-9a3d-4fe0-a7a8-2c256984a371",
+        "disabled": true,
+        "settings": {}
       }
     },
     "color_schemes": {
