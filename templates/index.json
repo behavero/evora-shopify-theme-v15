@@ -15,8 +15,7 @@
         "clicky_clickable_banner_feik6M": {
           "type": "shopify://apps/clicky/blocks/clickable_banner/2d58f9d3-a5fb-4893-8aac-935f0ebcc5b8",
           "settings": {
-            "cb_desktop_image": "shopify://shop_images/evora_yoga_Banner.webp",
-            "cb_mobile_image": "shopify://shop_images/evora_yoga_mobile_banner.webp",
+            "cb_desktop_image": "shopify://shop_images/femei-pilates-echipament-sport-evora.webp",
             "image_size": "medium",
             "cb_image_link": "shopify://collections/pilates-set",
             "cb_is_boxed_layout": false,
@@ -152,7 +151,7 @@
           "settings": {
             "title": "Worn By You",
             "title_color": "",
-            "title_size": 45,
+            "title_size_v2": 0,
             "alignment": "left",
             "margin_top": 0,
             "margin_bottom": 20,
