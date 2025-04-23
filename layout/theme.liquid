@@ -702,12 +702,12 @@
               ttq.track('AddToCart', cartData);
               await this.sendToTikTokCAPI('AddToCart', contents, cartData);
               await this.sendToMetaCAPI('AddToCart', cartData, {
-                email: '{{ customer.email }}',
-                phone: '{{ customer.phone }}',
-                first_name: '{{ customer.first_name }}',
-                last_name: '{{ customer.last_name }}',
-                city: '{{ customer.default_address.city }}'
-              });
+                  email: '{{ customer.email }}',
+                  phone: '{{ customer.phone }}',
+                  first_name: '{{ customer.first_name }}',
+                  last_name: '{{ customer.last_name }}',
+                  city: '{{ customer.default_address.city }}'
+                });
             };
             form.addEventListener('submit', handler);
             this.cleanupFunctions.add(() => form.removeEventListener('submit', handler));
